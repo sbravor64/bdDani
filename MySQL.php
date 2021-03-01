@@ -13,7 +13,7 @@ class MySQL{
     var $debug;     //modo depuracion, mostrara los errores y los querys
 
 
-    function __construct($usuario, $clave, $servidor, $nomBD, $debug=1){
+    public function __construct($usuario, $clave, $servidor, $nomBD, $debug=1){
         //al llamarla conecta directametne a la base de datos
 
         $this->usuario      = $usuario;
@@ -21,7 +21,7 @@ class MySQL{
         $this->servidor     = $servidor;
         $this->nomBD        = $nomBD;
         $this->debug        = $debug;
-        
+
         
 	$this->conn = mysqli_connect($this->servidor, $this->usuario, $this->clave, $this->nomBD) or $this->error_mysql(mysqli_connect_error());
 	mysqli_select_db($this->conn, $this->nomBD) or $this->error_mysql(mysqli_connect_errno());
