@@ -1,6 +1,11 @@
 <?php
-	 // Incluir el controlador    
-	 
+	//include("controlador.php");
+    //include 'controlador.php';
+    include 'controlador.php';
+
+    if($_POST["Aceptar"]){
+        echo "hola";
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,6 +33,7 @@
                     <label><input type="radio" name="accion" value="modificar"> Modificar<br /></label><br />
                     <input type="submit" value="Aceptar">
                 </form>
+                
             </div>
             <div class="crearModificarCampio">
                 <h3>Crear/Modificar Campió</h3>
@@ -83,12 +89,18 @@
             <div class="jugadors">
                 <h3>Jugadors</h3>
                 <?php
+                    getAllJugadores($bd);
                     if( !is_null($jugadores) ){
                         echo '<table class="tablaJugador">';
                         echo '<tr><th>Id</th><th>Nom</th><th>Nivell</th><th>Data</th></tr>';
-                        
+
                         // Bucle foreach que recorre cada posicion del array $jugadores
-                        // y escribe una fila con tantas columnas como atributos tiene un jugador
+                        // y escribe una fila con tantas columnas como atributos tiene jugadores
+                        for ($i = 0; $i < $jugadores->numFilasObtenidas; $i++)
+                            echo "<tr><td>".$jugadores->tablaResultados[$i]->id.
+                                "</td><td>".$jugadores->tablaResultados[$i]->nombre.
+                                "</td><td>".$jugadores->tablaResultados[$i]->nivel.
+                                "</td><td>".$jugadores->tablaResultados[$i]->fecha."</td></tr>";
                         
                         
                         echo '</table>';
@@ -98,12 +110,18 @@
             <div class="relacions">
                 <h3>Batalles</h3>
                 <?php
+                    getAllBatallas($bd);
                     if( !is_null($batallas) ){
                         echo '<table class="tablaBatalla">';
                         echo '<tr><th>Id Jugador</th><th>Id Campeón</th><th>Cantidad</th>';
                         
                         // Bucle foreach que recorre cada posicion del array $batallas
                         // y escribe una fila con tantas columnas como atributos tiene un una batalla
+                        for ($i = 0; $i < $batallas->numFilasObtenidas; $i++)
+                            echo "<tr><td>".$batallas->tablaResultados[$i]->id.
+                                "</td><td>".$batallas->tablaResultados[$i]->nombre.
+                                "</td><td>".$batallas->tablaResultados[$i]->nivel.
+                                "</td><td>".$batallas->tablaResultados[$i]->fecha."</td></tr>";
                         
                         
                         echo '</table>';
@@ -113,13 +131,18 @@
             <div class="campions">
                 <h3>Campions</h3>
                 <?php
+                    getAllCampeones($bd);
                     if( !is_null($campeones) ){
                         echo '<table class="tablaCampeon">';
                         echo '<tr><th>Id</th><th>Nom</th><th>Tipus</th><th>Preu</th><th>Data</th></tr>';
                         
                         // Bucle foreach que recorre cada posicion del array $campeones
                         // y escribe una fila con tantas columnas como atributos tiene un campeon
-                        
+                        for ($i = 0; $i < $campeones->numFilasObtenidas; $i++)
+                            echo "<tr><td>".$campeones->tablaResultados[$i]->id.
+                                "</td><td>".$campeones->tablaResultados[$i]->nombre.
+                                "</td><td>".$campeones->tablaResultados[$i]->nivel.
+                                "</td><td>".$campeones->tablaResultados[$i]->fecha."</td></tr>";
                         
                         echo '</table>';
                     }
