@@ -1,11 +1,4 @@
 <?php
-	//include("controlador.php");
-    //include 'controlador.php';
-    include 'controlador.php';
-
-    if($_POST["Aceptar"]){
-        echo "hola";
-    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +24,7 @@
                     <input type="date" name="fecha" placeholder="Data alta" /><br /><br />
                     <label><input type="radio" name="accion" value="crear" checked> Crear</label><br />
                     <label><input type="radio" name="accion" value="modificar"> Modificar<br /></label><br />
-                    <input type="submit" value="Aceptar">
+                    <input type="submit" value="Aceptar" name="btnJugador">
                 </form>
                 
             </div>
@@ -89,6 +82,7 @@
             <div class="jugadors">
                 <h3>Jugadors</h3>
                 <?php
+                    include 'controlador.php';
                     getAllJugadores($bd);
                     if( !is_null($jugadores) ){
                         echo '<table class="tablaJugador">';
@@ -118,12 +112,10 @@
                         // Bucle foreach que recorre cada posicion del array $batallas
                         // y escribe una fila con tantas columnas como atributos tiene un una batalla
                         for ($i = 0; $i < $batallas->numFilasObtenidas; $i++)
-                            echo "<tr><td>".$batallas->tablaResultados[$i]->id.
-                                "</td><td>".$batallas->tablaResultados[$i]->nombre.
-                                "</td><td>".$batallas->tablaResultados[$i]->nivel.
-                                "</td><td>".$batallas->tablaResultados[$i]->fecha."</td></tr>";
-                        
-                        
+                            echo "<tr><td>".$batallas->tablaResultados[$i]->idJugador.
+                                "</td><td>".$batallas->tablaResultados[$i]->idCampeon.
+                                "</td><td>".$batallas->tablaResultados[$i]->cantidad."</td></tr>";
+                              
                         echo '</table>';
                     }
                 ?>
@@ -141,7 +133,8 @@
                         for ($i = 0; $i < $campeones->numFilasObtenidas; $i++)
                             echo "<tr><td>".$campeones->tablaResultados[$i]->id.
                                 "</td><td>".$campeones->tablaResultados[$i]->nombre.
-                                "</td><td>".$campeones->tablaResultados[$i]->nivel.
+                                "</td><td>".$campeones->tablaResultados[$i]->tipo.
+                                "</td><td>".$campeones->tablaResultados[$i]->precio.
                                 "</td><td>".$campeones->tablaResultados[$i]->fecha."</td></tr>";
                         
                         echo '</table>';
