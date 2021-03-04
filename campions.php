@@ -82,8 +82,10 @@
             <div class="jugadors">
                 <h3>Jugadors</h3>
                 <?php
-                    include 'controlador.php';
-                    getAllJugadores($bd);
+                        include 'controlador.php';
+                        getAllJugadores($bd);
+                        getAllBatallas($bd);
+                        getAllCampeones($bd);
                     if( !is_null($jugadores) ){
                         echo '<table class="tablaJugador">';
                         echo '<tr><th>Id</th><th>Nom</th><th>Nivell</th><th>Data</th></tr>';
@@ -104,7 +106,7 @@
             <div class="relacions">
                 <h3>Batalles</h3>
                 <?php
-                    getAllBatallas($bd);
+                    
                     if( !is_null($batallas) ){
                         echo '<table class="tablaBatalla">';
                         echo '<tr><th>Id Jugador</th><th>Id Campeón</th><th>Cantidad</th>';
@@ -123,7 +125,7 @@
             <div class="campions">
                 <h3>Campions</h3>
                 <?php
-                    getAllCampeones($bd);
+                    
                     if( !is_null($campeones) ){
                         echo '<table class="tablaCampeon">';
                         echo '<tr><th>Id</th><th>Nom</th><th>Tipus</th><th>Preu</th><th>Data</th></tr>';

@@ -39,46 +39,31 @@ $batallaArgs = array(
 
 //----------------CONDICIONALES----------------
 
-if(filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'jugador'){
-    $post = filter_input_array(INPUT_POST, $jugadorArgs);
-    //var_dump($post);
-    if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear'){
-        insertJugador($jugadores, $bd);
-    } else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') {
-        updateJugador($jugadores, $bd);
-    } else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar'){
-        deleteJugador($jugadores, $bd);
-    }
-    
-} else if (filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'campio') {
-    $post = filter_input_array(INPUT_POST, $campioArgs);
-    //var_dump($post);
-    if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear'){
-        insertCampeon($campeones, $bd); 
-    } else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') {
-        updateCampeon($campeones, $bd);
-    } else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar'){
-        deleteCampeon($campeones, $bd);
-    }
-    
-} else if (filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'batalla') {
-    $post = filter_input_array(INPUT_POST, $batallaArgs);
-    //var_dump($post); 
-    if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear'){
-        insertBatalla($batallas, $bd);
-    } else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') {
-        updateBatalla($batallas, $bd);
-    } else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar'){
-        deleteBatalla($batallas, $bd);
-    }
+if(!empty($_POST)){
+    action($post, $bd);
 }
 
 //----------------FUNCTION----------------
 //----------------FUNCTION----------------
 //----------------FUNCTION----------------
 
-function accion( $post, $bd ){
+if(filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'jugador'){ $post = filter_input_array(INPUT_POST, $jugadorArgs);
+    if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear') insertJugador($post, $bd);
+    else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') updateJugador($post, $bd);
+    else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar') deleteJugador($post, $bd);
+} else if (filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'campio') {
+    $post = filter_input_array(INPUT_POST, $campioArgs);
+    if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear') insertCampeon($post, $bd); 
+    else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') updateCampeon($post, $bd);
+    else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar') deleteCampeon($post, $bd);
+} else if (filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'batalla') { $post = filter_input_array(INPUT_POST, $batallaArgs);
+    if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear') insertBatalla($post, $bd);
+    else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') updateBatalla($post, $bd);
+    else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar') deleteBatalla($post, $bd);
+}
 
+function action($post, $bd){
+    echo "hola";
 }
 
 //----------------GET ALL----------------
@@ -103,83 +88,65 @@ function getAllCampeones($bd){
 
 //----------------INSERT FROM BD----------------
 
-function insertJugador($jugadores, $bd){
-    global $jugadores;
-    global $post;
-
-    $id=$post['id'];
-    $nombre=$post['nombre'];
-    $nivel=(int)$post['nivel'];
-    $fecha=$post['fecha'];
+function insertJugador($j, $bd){
+    $id=$j['id'];
+    $nombre=$j['nombre'];
+    $nivel=(int)$j['nivel'];
+    $fecha=$j['fecha'];
 
     $query = "INSERT INTO jugador (id, nombre, `nivel`, fecha) VALUES ('$id', '$nombre', '$nivel', '$fecha')";
-    $jugadores = new Consulta($query, $bd);
+    $j = new Consulta($query, $bd);
     $bd->x;
 
 }
-function insertCampeon($campeones, $bd){
-    global $campeones;
-    global $post;
-
-    $id=$post['id'];
-    $nombre=$post['nombre'];
-    $tipo=$post['tipo'];
-    $precio=(int)$post['precio'];
-    $fecha=$post['fecha'];
+function insertCampeon($c, $bd){
+    $id=$c['id'];
+    $nombre=$c['nombre'];
+    $tipo=$c['tipo'];
+    $precio=(int)$c['precio'];
+    $fecha=$c['fecha'];
 
     $query = "INSERT INTO campeon (id, nombre, tipo, `precio`, fecha) VALUES ('$id', '$nombre', '$tipo', '$precio', '$fecha')";
-    $campeones = new Consulta($query, $bd);
+    $c = new Consulta($query, $bd);
     $bd->x;
 }
-function insertBatalla($batallas, $bd){
-    global $batallas;
-    global $post;
-
-    $idJugador=$post['idJ'];
-    $idCampeon=$post['idC'];
-    $cantidad=(int)$post['cantidad'];
+function insertBatalla($b, $bd){
+    $idJugador=$b['idJ'];
+    $idCampeon=$b['idC'];
+    $cantidad=(int)$b['cantidad'];
 
     $query = "INSERT INTO batalla (idJugador, idCampeon, `cantidad`) VALUES ('$idJugador', '$idCampeon', '$cantidad')";
-    $batallas = new Consulta($query, $bd);
+    $b = new Consulta($query, $bd);
     $bd->x;
 }
 
 //----------------UPDATE FROM BD----------------
 
-function updateJugador($jugadores, $bd){
-    global $jugadores;
-    global $post;
-
-    $id=$post['id'];
-    $nombre=$post['nombre'];
-    $nivel=(int)$post['nivel'];
-    $fecha=$post['fecha'];
+function updateJugador($j, $bd){
+    $id=$j['id'];
+    $nombre=$j['nombre'];
+    $nivel=(int)$j['nivel'];
+    $fecha=$j['fecha'];
 
     $query = "UPDATE jugador SET nombre='$nombre', nivel='$nivel', fecha='$fecha' WHERE id=$id";
-    $jugadores = new Consulta($query, $bd);
+    $j = new Consulta($query, $bd);
     $bd->x;
 }
-function updateCampeon($campeones, $bd){
-    global $campeones;
-    global $post;
-
-    $id=$post['id'];
-    $nombre=$post['nombre'];
-    $tipo=$post['tipo'];
-    $precio=(int)$post['precio'];
-    $fecha=$post['fecha'];
+function updateCampeon($c, $bd){
+    $id=$c['id'];
+    $nombre=$c['nombre'];
+    $tipo=$c['tipo'];
+    $precio=(int)$c['precio'];
+    $fecha=$c['fecha'];
 
     $query = "UPDATE campeon SET nombre='$nombre', tipo='$tipo', precio='$precio', fecha='$fecha' WHERE id=$id";
-    $campeones = new Consulta($query, $bd);
+    $c = new Consulta($query, $bd);
     $bd->x;
 }
-function updateBatalla($batallas, $bd){
-    global $batallas;
-    global $post;
-
-    $idJugador=$post['idJ'];
-    $idCampeon=$post['idC'];
-    $cantidad=(int)$post['cantidad'];
+function updateBatalla($b, $bd){
+    $idJugador=$b['idJ'];
+    $idCampeon=$b['idC'];
+    $cantidad=(int)$b['cantidad'];
     // al dar id
     $query = "UPDATE batalla SET cantidad='$cantidad' WHERE idJugador='$idJugador' AND idCampeon='$idCampeon'";
     $batallas = new Consulta($query, $bd);
@@ -188,35 +155,26 @@ function updateBatalla($batallas, $bd){
 
 //----------------DELETE FROM BD----------------
 
-function deleteJugador($jugadores, $bd){
-    global $jugadores;
-    global $post;
-
-    $id=$post['id'];
+function deleteJugador($j, $bd){
+    $id=$j['id'];
 
     $query = "DELETE FROM jugador WHERE id=$id";
-    $jugadores = new Consulta($query, $bd);
+    $j = new Consulta($query, $bd);
     $bd->x;
 }
-function deleteCampeon($campeones, $bd){
-    global $jugadores;
-    global $post;
-
-    $id=$post['id'];
+function deleteCampeon($c, $bd){
+    $id=$c['id'];
 
     $query = "DELETE FROM campeon WHERE id=$id";
-    $campeones = new Consulta($query, $bd);
+    $c = new Consulta($query, $bd);
     $bd->x;
 }
-function deleteBatalla($batallas, $bd){
-    global $jugadores;
-    global $post;
-
-    $idJugador=$post['idJ'];
-    $idCampeon=$post['idC'];
+function deleteBatalla($b, $bd){
+    $idJugador=$b['idJ'];
+    $idCampeon=$b['idC'];
 
     $query = "DELETE FROM batalla WHERE idJugador='$idJugador' AND idCampeon='$idCampeon'";
-    $batallas = new Consulta($query, $bd);
+    $b = new Consulta($query, $bd);
     $bd->x;
 }
 
