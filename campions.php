@@ -1,4 +1,8 @@
 <?php
+    include 'controlador.php';
+    getAllJugadores($bd);
+    getAllBatallas($bd);
+    getAllCampeones($bd);
 ?>
 <!DOCTYPE html>
 <html>
@@ -6,7 +10,7 @@
         <title>Campions</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styleGestor.css" />
+        <link href="styleGesto.css" rel="stylesheet"/>
         <script src=""></script>
     </head>
     <body>
@@ -82,10 +86,6 @@
             <div class="jugadors">
                 <h3>Jugadors</h3>
                 <?php
-                        include 'controlador.php';
-                        getAllJugadores($bd);
-                        getAllBatallas($bd);
-                        getAllCampeones($bd);
                     if( !is_null($jugadores) ){
                         echo '<table class="tablaJugador">';
                         echo '<tr><th>Id</th><th>Nom</th><th>Nivell</th><th>Data</th></tr>';
@@ -128,7 +128,7 @@
                     
                     if( !is_null($campeones) ){
                         echo '<table class="tablaCampeon">';
-                        echo '<tr><th>Id</th><th>Nom</th><th>Tipus</th><th>Preu</th><th>Data</th></tr>';
+                        echo '<tr><th class="campeon">Id</th><th>Nom</th><th>Tipus</th><th>Preu</th><th>Data</th></tr>';
                         
                         // Bucle foreach que recorre cada posicion del array $campeones
                         // y escribe una fila con tantas columnas como atributos tiene un campeon
