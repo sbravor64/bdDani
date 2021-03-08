@@ -49,41 +49,46 @@ if(!empty($_POST)){
 
 function action($post, $bd){
     global $jugadorArgs; global $batallaArgs; global $campioArgs;
-    if(filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'jugador'){ $post = filter_input_array(INPUT_POST, $jugadorArgs);
-        if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear') insertJugador($post, $bd);
-        else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') updateJugador($post, $bd);
-        else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar') deleteJugador($post, $bd);
-    } else if (filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'campio') {
-        $post = filter_input_array(INPUT_POST, $campioArgs);
-        if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear') insertCampeon($post, $bd); 
-        else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') updateCampeon($post, $bd);
-        else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar') deleteCampeon($post, $bd);
-    } else if (filter_input(INPUT_POST, "form", FILTER_SANITIZE_STRING) == 'batalla') { $post = filter_input_array(INPUT_POST, $batallaArgs);
-        if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'crear') insertBatalla($post, $bd);
-        else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'modificar') updateBatalla($post, $bd);
-        else if(filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING) == 'eliminar') deleteBatalla($post, $bd);
-    }
+    if($_POST["form"] == "jugador"){
+        $post = filter_input_array(INPUT_POST, $jugadorArgs);
 
+        if($_POST["accion"] == 'crear') insertJugador($post, $bd);
+        else if($_POST["accion"] == 'modificar') updateJugador($post, $bd);
+        else if($_POST["accion"] == 'eliminar') deleteJugador($post, $bd);
+
+    } else if ($_POST["form"] == 'campio') {
+        $post = filter_input_array(INPUT_POST, $campioArgs);
+
+        if($_POST["accion"] == 'crear') insertCampeon($post, $bd); 
+        else if($_POST["accion"] == 'modificar') updateCampeon($post, $bd);
+        else if($_POST["accion"] == 'eliminar') deleteCampeon($post, $bd);
+
+    } else if ($_POST["form"] == 'batalla') {
+        $post = filter_input_array(INPUT_POST, $batallaArgs);
+
+        if($_POST["accion"] == 'crear') insertBatalla($post, $bd);
+        else if($_POST["accion"] == 'modificar') updateBatalla($post, $bd);
+        else if($_POST["accion"] == 'eliminar') deleteBatalla($post, $bd);
+
+    }
 }
 
 //----------------GET ALL----------------
 
 function getAllJugadores($bd){
-    global $jugadores;
     $query = "SELECT * FROM jugador";
-    $jugadores = new Consulta($query, $bd);
+    return new Consulta($query, $bd);
 }
 
 function getAllBatallas($bd){
-    global $batallas;
     $query = "SELECT * FROM batalla";
-    $batallas = new Consulta($query, $bd);
+    return new Consulta($query, $bd);
 }
 
 function getAllCampeones($bd){
     global $campeones;
     $query = "SELECT * FROM campeon";
-    $campeones = new Consulta($query, $bd);
+    return new Consulta($query, $bd);
 }
 
 //----------------INSERT FROM BD----------------
@@ -97,7 +102,6 @@ function insertJugador($j, $bd){
     $query = "INSERT INTO jugador (id, nombre, `nivel`, fecha) VALUES ('$id', '$nombre', '$nivel', '$fecha')";
     $j = new Consulta($query, $bd);
     $bd->x;
-
 }
 function insertCampeon($c, $bd){
     $id=$c['id'];

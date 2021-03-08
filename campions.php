@@ -1,8 +1,5 @@
 <?php
     include 'controlador.php';
-    getAllJugadores($bd);
-    getAllBatallas($bd);
-    getAllCampeones($bd);
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +7,7 @@
         <title>Campions</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="styleGesto.css" rel="stylesheet"/>
+        <link href="styleGestor.css" rel="stylesheet"/>
         <script src=""></script>
     </head>
     <body>
@@ -63,14 +60,14 @@
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="jugador">
                     <input type="hidden" name="accion" value="eliminar">
-                    <input type="text" name="id" placeholder="Id jugador"/><br /><br />
-                    <input type="submit" value="Eliminar">
+                    <input type="text" name="id" placeholder="Id jugador"/><br />
+                    <input type="submit" value="Eliminar"><br>
                 </form>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="campio">
                     <input type="hidden" name="accion" value="eliminar">
-                    <input type="text" name="id" placeholder="Id campió"/><br /><br />
-                    <input type="submit" value="Eliminar">
+                    <input type="text" name="id" placeholder="Id campió"/><br />
+                    <input type="submit" value="Eliminar"><br>
                 </form>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="batalla">
@@ -86,6 +83,7 @@
             <div class="jugadors">
                 <h3>Jugadors</h3>
                 <?php
+                    $jugadores = getAllJugadores($bd);
                     if( !is_null($jugadores) ){
                         echo '<table class="tablaJugador">';
                         echo '<tr><th>Id</th><th>Nom</th><th>Nivell</th><th>Data</th></tr>';
@@ -106,7 +104,7 @@
             <div class="relacions">
                 <h3>Batalles</h3>
                 <?php
-                    
+                    $batallas = getAllBatallas($bd);
                     if( !is_null($batallas) ){
                         echo '<table class="tablaBatalla">';
                         echo '<tr><th>Id Jugador</th><th>Id Campeón</th><th>Cantidad</th>';
@@ -125,7 +123,7 @@
             <div class="campions">
                 <h3>Campions</h3>
                 <?php
-                    
+                    $campeones = getAllCampeones($bd);
                     if( !is_null($campeones) ){
                         echo '<table class="tablaCampeon">';
                         echo '<tr><th class="campeon">Id</th><th>Nom</th><th>Tipus</th><th>Preu</th><th>Data</th></tr>';
