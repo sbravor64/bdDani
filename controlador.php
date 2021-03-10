@@ -8,8 +8,6 @@ include("consulta.php");
 $bd = new MySQL("admin", "admin", "192.168.1.80", "campions");
 
 //----------------VARIABLES EXTERNAS----------------
-
-$jugadores; $batallas; $campeones;
 $post;
 
 //----------------ARRAYS PARA LOS POST----------------
@@ -100,8 +98,7 @@ function insertJugador($j, $bd){
     $fecha=$j['fecha'];
 
     $query = "INSERT INTO jugador (id, nombre, nivel, fecha) VALUES ('$id', '$nombre', '$nivel', '$fecha')";
-    $j = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 function insertCampeon($c, $bd){
     $id=$c['id'];
@@ -111,8 +108,7 @@ function insertCampeon($c, $bd){
     $fecha=$c['fecha'];
 
     $query = "INSERT INTO campeon (id, nombre, tipo, precio, fecha) VALUES ('$id', '$nombre', '$tipo', '$precio', '$fecha')";
-    $c = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 function insertBatalla($b, $bd){
     $idJugador=$b['idJ'];
@@ -120,8 +116,7 @@ function insertBatalla($b, $bd){
     $cantidad=(int)$b['cantidad'];
 
     $query = "INSERT INTO batalla (idJugador, idCampeon, cantidad) VALUES ('$idJugador', '$idCampeon', '$cantidad')";
-    $b = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 
 //----------------UPDATE FROM BD----------------
@@ -133,8 +128,7 @@ function updateJugador($j, $bd){
     $fecha=$j['fecha'];
 
     $query = "UPDATE jugador SET nombre='$nombre', nivel='$nivel', fecha='$fecha' WHERE id=$id";
-    $j = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 function updateCampeon($c, $bd){
     $id=$c['id'];
@@ -144,17 +138,15 @@ function updateCampeon($c, $bd){
     $fecha=$c['fecha'];
 
     $query = "UPDATE campeon SET nombre='$nombre', tipo='$tipo', precio='$precio', fecha='$fecha' WHERE id=$id";
-    $c = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 function updateBatalla($b, $bd){
     $idJugador=$b['idJ'];
     $idCampeon=$b['idC'];
     $cantidad=(int)$b['cantidad'];
-    // al dar id
+    
     $query = "UPDATE batalla SET cantidad='$cantidad' WHERE idJugador='$idJugador' AND idCampeon='$idCampeon'";
-    $batallas = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 
 //----------------DELETE FROM BD----------------
@@ -163,29 +155,27 @@ function deleteJugador($j, $bd){
     $id=$j['id'];
 
     $query = "DELETE FROM jugador WHERE id=$id";
-    $j = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 function deleteCampeon($c, $bd){
     $id=$c['id'];
 
     $query = "DELETE FROM campeon WHERE id=$id";
-    $c = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 function deleteBatalla($b, $bd){
     $idJugador=$b['idJ'];
     $idCampeon=$b['idC'];
 
     $query = "DELETE FROM batalla WHERE idJugador='$idJugador' AND idCampeon='$idCampeon'";
-    $b = new Consulta($query, $bd);
-    $bd->x;
+    consulta($query, $bd);
 }
 
-//$conectmysql = new MySQL($usuario, $contrasena, $servidor, $bd);
-//$query = "SELECT * FROM jugador";
-//$consulta = new Consulta($query, $conectmysql);
-//for ($i = 0; $i < $consulta->numFilasObtenidas; $i++)
-//    echo $consulta->tablaResultados[$i]->nombre."\n";
+
+//---------------CONSULTA-----------------
+function consulta($query, $bd){
+    $consulta = new Consulta($query, $bd);
+    $bd->x;
+}
 
 ?>
