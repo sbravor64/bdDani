@@ -19,7 +19,7 @@
                 <h3>Crear/Modificar Jugador</h3>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="jugador">
-                    <input type="text" name="id" placeholder="Id" /><br /><br />
+                    <input type="text" name="id" placeholder="Id" required/><br /><br />
                     <input type="text" name="nombre" placeholder="Nom"/><br /><br />
                     <input type="number" name="nivel" placeholder="Nivell"/><br /><br />
                     <input type="date" name="fecha" placeholder="Data alta" /><br /><br />
@@ -33,7 +33,7 @@
                 <h3>Crear/Modificar Campió</h3>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="campio">
-                    <input type="text" name="id" placeholder="Id"/><br /><br />
+                    <input type="text" name="id" placeholder="Id" required/><br /><br />
                     <input type="text" name="nombre" placeholder="Nom"/><br /><br />
                     <input type="text" name="tipo" placeholder="Tipus"/><br /><br />
                     <input type="number" name="precio" placeholder="Preu" /><br /><br />
@@ -44,12 +44,12 @@
                 </form>
             </div>
             <div class="crearModificarBatalla">
-                <h3>Crear / Modificar Batalla</h3>
+                <h3>Crear/Modificar Batalla</h3>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="batalla">
-                    <input type="text" name="idJ" placeholder="Id jugador"/><br /><br />
-                    <input type="text" name="idC" placeholder="Id Campió"/><br /><br />
-                    <input type="number" name="cantidad" placeholder="Cantitat" /><br /><br />
+                    <input type="text" name="idJ" placeholder="Id jugador" required/><br /><br />
+                    <input type="text" name="idC" placeholder="Id Campió" required/><br /><br />
+                    <input type="number" name="cantidad" placeholder="Cantitat" required/><br /><br />
                     <label><input type="radio" name="accion" value="crear" checked> Crear</label><br />
                     <label><input type="radio" name="accion" value="modificar"> Modificar<br /></label><br />
                     <input type="submit" value="Aceptar">
@@ -60,20 +60,20 @@
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="jugador">
                     <input type="hidden" name="accion" value="eliminar">
-                    <input type="text" name="id" placeholder="Id jugador"/><br />
-                    <input type="submit" value="Eliminar"><br>
+                    <input type="text" name="id" placeholder="Id jugador" required/><br />
+                    <input type="submit" value="Eliminar"><br /><br /><br />
                 </form>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="campio">
                     <input type="hidden" name="accion" value="eliminar">
-                    <input type="text" name="id" placeholder="Id campió"/><br />
-                    <input type="submit" value="Eliminar"><br>
+                    <input type="text" name="id" placeholder="Id campió" required/><br />
+                    <input type="submit" value="Eliminar"><br /><br /><br />
                 </form>
                 <form action="campions.php" method="post">
                     <input type="hidden" name="form" value="batalla">
                     <input type="hidden" name="accion" value="eliminar">
-                    <input type="text" name="idJ" placeholder="Id jugador"/><br /><br />
-                    <input type="text" name="idC" placeholder="Id campió"/><br /><br />
+                    <input type="text" name="idJ" placeholder="Id jugador" required/><br /><br />
+                    <input type="text" name="idC" placeholder="Id campió" required/><br />
                     <input type="submit" value="Eliminar">
                 </form>
                 
@@ -95,7 +95,6 @@
                                 "</td><td>".$jugadores->tablaResultados[$i]->nombre.
                                 "</td><td>".$jugadores->tablaResultados[$i]->nivel.
                                 "</td><td>".$jugadores->tablaResultados[$i]->fecha."</td></tr>";
-                        
                         
                         echo '</table>';
                     }

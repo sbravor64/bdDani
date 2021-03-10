@@ -5,7 +5,7 @@ include("consulta.php");
 
 //----------------CONNECT BD----------------
 
-$bd = new MySQL("admin", "admin", "localhost", "campions");
+$bd = new MySQL("admin", "admin", "192.168.1.80", "campions");
 
 //----------------VARIABLES EXTERNAS----------------
 
@@ -99,7 +99,7 @@ function insertJugador($j, $bd){
     $nivel=(int)$j['nivel'];
     $fecha=$j['fecha'];
 
-    $query = "INSERT INTO jugador (id, nombre, `nivel`, fecha) VALUES ('$id', '$nombre', '$nivel', '$fecha')";
+    $query = "INSERT INTO jugador (id, nombre, nivel, fecha) VALUES ('$id', '$nombre', '$nivel', '$fecha')";
     $j = new Consulta($query, $bd);
     $bd->x;
 }
@@ -110,7 +110,7 @@ function insertCampeon($c, $bd){
     $precio=(int)$c['precio'];
     $fecha=$c['fecha'];
 
-    $query = "INSERT INTO campeon (id, nombre, tipo, `precio`, fecha) VALUES ('$id', '$nombre', '$tipo', '$precio', '$fecha')";
+    $query = "INSERT INTO campeon (id, nombre, tipo, precio, fecha) VALUES ('$id', '$nombre', '$tipo', '$precio', '$fecha')";
     $c = new Consulta($query, $bd);
     $bd->x;
 }
@@ -119,7 +119,7 @@ function insertBatalla($b, $bd){
     $idCampeon=$b['idC'];
     $cantidad=(int)$b['cantidad'];
 
-    $query = "INSERT INTO batalla (idJugador, idCampeon, `cantidad`) VALUES ('$idJugador', '$idCampeon', '$cantidad')";
+    $query = "INSERT INTO batalla (idJugador, idCampeon, cantidad) VALUES ('$idJugador', '$idCampeon', '$cantidad')";
     $b = new Consulta($query, $bd);
     $bd->x;
 }
